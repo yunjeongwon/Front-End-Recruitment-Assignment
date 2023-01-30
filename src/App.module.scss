@@ -1,0 +1,10 @@
+.container {
+  display: grid;
+  grid-template-rows: 2fr 1fr 10fr;
+  padding: 20px;
+  background-color: #f3f3f3;
+  .result__count {
+    display: flex;
+    align-items: center;
+  }
+}
