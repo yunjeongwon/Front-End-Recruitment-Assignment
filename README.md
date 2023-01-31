@@ -22,6 +22,6 @@
 
 - Pagination
 
-  - [ ] Implement rows per page using a select box. The select box should display [10, 20, 50] options.
+  - [x] Implement rows per page using a select box. The select box should display [10, 20, 50] options.
 
   - [ ] Both rows per page and page number must be persisted after the refresh.

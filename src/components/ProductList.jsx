@@ -1,7 +1,13 @@
 import ProductPagination from "./ProductPagination";
 import styles from "./ProductList.module.scss";
 
-const ItemList = ({ products }) => {
+const ItemList = ({
+  products,
+  rows,
+  onHandleRows,
+  pageNumber,
+  onHandleBtnClick
+}) => {
   return (
     <div className={styles.container}>
       <table className={styles.table}>
@@ -17,7 +23,7 @@ const ItemList = ({ products }) => {
           </tr>
         </thead>
         <tbody className={styles.tbody}>
-          {products.length > 0 &&
+          {products?.length > 0 &&
             products.map((product) => (
               <tr key={product.id} className={styles.tbody__tr}>
                 <td className={styles.tbody__td}>{product.id}</td>
@@ -34,7 +40,12 @@ const ItemList = ({ products }) => {
             ))}
         </tbody>
       </table>
-      <ProductPagination />
+      <ProductPagination
+        rows={rows}
+        onHandleRows={onHandleRows}
+        pageNumber={pageNumber}
+        onHandleBtnClick={onHandleBtnClick}
+      />
     </div>
   );
 };
