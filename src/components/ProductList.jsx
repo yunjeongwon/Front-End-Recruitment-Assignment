@@ -1,13 +1,11 @@
+import { useSelector } from "react-redux";
+
 import ProductPagination from "./ProductPagination";
 import styles from "./ProductList.module.scss";
 
-const ItemList = ({
-  products,
-  rows,
-  onHandleRows,
-  pageNumber,
-  onHandleBtnClick
-}) => {
+const ItemList = () => {
+  const { viewedProducts } = useSelector((state) => state.product);
+
   return (
     <div className={styles.container}>
       <table className={styles.table}>
@@ -23,8 +21,8 @@ const ItemList = ({
           </tr>
         </thead>
         <tbody className={styles.tbody}>
-          {products?.length > 0 &&
-            products.map((product) => (
+          {viewedProducts?.length > 0 &&
+            viewedProducts.map((product) => (
               <tr key={product.id} className={styles.tbody__tr}>
                 <td className={styles.tbody__td}>{product.id}</td>
                 <td className={styles.tbody__td}>{product.title}</td>
@@ -40,12 +38,7 @@ const ItemList = ({
             ))}
         </tbody>
       </table>
-      <ProductPagination
-        rows={rows}
-        onHandleRows={onHandleRows}
-        pageNumber={pageNumber}
-        onHandleBtnClick={onHandleBtnClick}
-      />
+      <ProductPagination />
     </div>
   );
 };

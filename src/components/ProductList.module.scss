@@ -3,12 +3,15 @@
   background-color: white;
   box-shadow: 0 2px 0 0 #b9b9b9;
   .table {
+    width: 100%;
     .thead {
       .thead__tr {
         height: 60px;
-        padding: 0 30px;
+        padding: 0 40px;
+        display: flex;
+        justify-content: space-around;
         display: grid;
-        grid-template-columns: 4fr 4fr 4fr 10fr 1fr 1fr 1fr;
+        grid-template-columns: 2fr 6fr 4fr 10fr 1fr 1fr 1fr;
         column-gap: 50px;
         border-bottom: 1px solid #e8e8e8;
         .thead__td {
@@ -22,9 +25,11 @@
     .tbody {
       .tbody__tr {
         height: 60px;
-        padding: 0 30px;
+        padding: 0 40px;
+        display: flex;
+        justify-content: space-around;
         display: grid;
-        grid-template-columns: 4fr 4fr 4fr 10fr 1fr 1fr 1fr;
+        grid-template-columns: 2fr 6fr 4fr 10fr 1fr 1fr 1fr;
         column-gap: 50px;
         border-bottom: 1px solid #e8e8e8;
         .tbody__td {

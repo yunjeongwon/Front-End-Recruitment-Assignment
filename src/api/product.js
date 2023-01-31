@@ -1,7 +1,7 @@
 import axios from "./index";
 
-const getProducts = async (limit) => {
-  const res = await axios.get(`/products?limit=${limit}`);
+const getProducts = async () => {
+  const res = await axios.get(`/products?limit=100`);
   return res;
 };
 

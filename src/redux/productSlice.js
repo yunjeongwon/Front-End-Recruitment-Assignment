@@ -1,25 +1,87 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+import getProducts from "../api/product";
 
 const initialState = {
-  value: 0
+  success: false,
+  loading: false,
+  error: null,
+  products: [],
+  totalProductsNumber: 0,
+  viewedProducts: [],
+  column: "전체",
+  word: "",
+  page: 1,
+  row: 10,
+  totalPageNumber: 10
 };
+
+export const fetchProducts = createAsyncThunk(
+  "product/fetchProducts",
+  async ({ column, word, page, row }) => {
+    const res = await getProducts();
+    return { ...res.data, column, word, page, row };
+  }
+);
 
 export const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
+    fetchViewedProducts: (state, { payload }) => {
+      state.viewedProducts = state.products.slice(
+        (payload.page - 1) * payload.row,
+        payload.page * payload.row
+      );
     },
-    decrement: (state) => {
-      state.value -= 1;
+    setColumn: (state, { payload }) => {
+      state.column = payload;
     },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
+    setRow: (state, { payload }) => {
+      state.row = payload;
+      state.totalPageNumber = 100 / payload;
+      state.page = 1;
+      state.viewedProducts = state.products.slice(0, payload);
+    },
+    setWord: (state, { payload }) => {
+      state.word = payload;
+    },
+    setPage: (state, { payload }) => {
+      state.page = payload;
+      state.viewedProducts = state.products.slice(
+        (payload - 1) * state.row,
+        payload * state.row
+      );
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchProducts.fulfilled, (state, { payload }) => {
+      state.loading = false;
+      state.success = true;
+      state.products = payload.products;
+      state.page = payload.page;
+      state.word = payload.word;
+      state.column = payload.column;
+      state.row = payload.row;
+      state.totalProductsNumber = payload.products.length;
+      state.viewedProducts = payload.products.slice(
+        (payload.page - 1) * payload.row,
+        payload.page * payload.row
+      );
+    });
+    builder.addCase(fetchProducts.pending, (state) => {
+      state.loading = true;
+      state.success = false;
+    });
+    builder.addCase(fetchProducts.rejected, (state, { payload }) => {
+      state.loading = false;
+      state.success = false;
+      state.error = payload;
+    });
   }
 });
 
-export const { increment, decrement, incrementByAmount } = productSlice.actions;
+export const { fetchViewedProducts, setColumn, setRow, setWord, setPage } =
+  productSlice.actions;
 
 export default productSlice.reducer;
