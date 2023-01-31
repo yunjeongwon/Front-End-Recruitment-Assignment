@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "./ItemSearchBar.module.scss";
+import styles from "./ProductSearchBar.module.scss";
 
 const selectList = ["전체", "상품명", "브랜드", "상품내용"];
 
