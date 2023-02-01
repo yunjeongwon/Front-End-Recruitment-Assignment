@@ -8,6 +8,23 @@ to run this application
 
 - Run `npm start`
 
+```
+└── /src
+    ├── /api
+    ├── /components
+    ├── /constants
+    ├── /redux
+    └── App.jsx
+```
+
+```
+└── /src
+    ├── /components
+    |   ├── ProductList.jsx
+    |   ├── ProductPagination.jsx
+    |   ├── ProductSearchBar.jsx
+```
+
 #### 트러블 슈팅
 
 새로고침
@@ -26,6 +43,10 @@ to run this application
 - 총 페이지 수를 10으로 나누고 올림한 것이 페이지 10개씩을 몇번까지 보여줄 수 있는지이다. 즉 이 수가 2이면 1~10, 11~20까지 보여줄 수 있습니다.
 - 한 페이지당 보여줄 상품 수(10), 한 화면 보여줄 페이지 수(10), 10개씩 몇번 보여줄 수 있는지 => 3차원 관계를 갖습니다.
 - 위를 고려해서 총 10페이지 초과에서도 같은 동작을 하도록 수정해야 합니다.
+
+과제하면서 느낀점
+
+- 디자인 패턴에 대한 이해가 부족하다고 생각되어 과제전형 이후 이와 관련한 공부를 해야겠다고 느꼈습니다.
 
 ### Todo List
 
