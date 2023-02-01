@@ -8,7 +8,7 @@ import {
   BsChevronRight
 } from "react-icons/bs";
 
-import { rowList } from "../contants/product";
+import { rowList } from "../constants/product";
 import styles from "./ProductPagination.module.scss";
 import { setRow, setPage } from "../redux/productSlice";
 

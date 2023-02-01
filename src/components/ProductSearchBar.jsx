@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { columnList } from "../contants/product";
+import { columnList } from "../constants/product";
 import { fetchProducts, resetProducts } from "../redux/productSlice";
 import styles from "./ProductSearchBar.module.scss";
 
