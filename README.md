@@ -1,6 +1,10 @@
 # 윤정원\_프론트엔드\_사람인
 
-## 투두 리스트
+- JavaScript, React 18 사용
+- 상태 관리, redux-toolkit 사용
+- query string에 담고 새로고침시 query string를 읽어서 데이터를 유지시켰습니다. => react-router-dom
+
+### Todo List
 
 - List
 
@@ -8,7 +12,7 @@
 
   - [x] After page refresh, the search result should persist.
 
-  - [x]] The column is in order of [상품번호, 상품명, 브랜드, 상품내용, 가격, 평점, 재고].
+  - [x] The column is in order of [상품번호, 상품명, 브랜드, 상품내용, 가격, 평점, 재고].
 
   - [x] Display the total amount of data at the top of the list.
 

@@ -29,7 +29,7 @@ const ItemList = () => {
                 <td className={styles.tbody__td}>{product.brand}</td>
                 <td className={styles.tbody__td}>
                   {product.description.length > 40 &&
-                    `${product.description.slice(0, 41)}...`}
+                    `${product.description.slice(0, 40)}...`}
                 </td>
                 <td className={styles.tbody__td}>{`$${product.price}`}</td>
                 <td className={styles.tbody__td}>{product.rating}</td>
