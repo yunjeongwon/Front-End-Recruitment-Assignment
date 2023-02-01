@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -18,11 +18,13 @@ const ItemPagination = () => {
   const barLeftRef = useRef();
   const rightRef = useRef();
   const barRightRef = useRef();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { column, word, row, totalPageNumber, page } = useSelector(
     (state) => state.product
   );
+  const [pageList, setPageList] = useState([]);
 
   const onChangeRow = (e) => {
     dispatch(setRow(e.target.value));
@@ -31,57 +33,48 @@ const ItemPagination = () => {
         `?column=${column}&word=${word}&row=${e.target.value}&page=${1}`
       );
     }
-    if (pageRef.current) {
-      pageRef.current.children[page - 1].id = "";
-      pageRef.current.children[0].id = `${styles.clicked}`;
-    }
   };
 
-  const clickPage = (nowPage, nextPage) => {
+  const clickPage = (nextPage) => {
     dispatch(setPage(nextPage));
     navigate(`?column=${column}&word=${word}&row=${row}&page=${nextPage}`);
-    if (pageRef.current.children?.[nowPage - 1]) {
-      pageRef.current.children[nowPage - 1].id = "";
-    }
-    if (pageRef.current.children?.[nextPage - 1]) {
-      pageRef.current.children[nextPage - 1].id = `${styles.clicked}`;
-    }
   };
 
   const onChangePage = (e) => {
-    clickPage(page, parseInt(e.target.innerText, 10));
+    clickPage(parseInt(e.target.innerText, 10));
   };
 
   const onClickBarLeft = () => {
-    clickPage(page, 1);
+    clickPage(1);
   };
 
   const onClickBarRight = () => {
-    clickPage(page, totalPageNumber);
+    clickPage(totalPageNumber);
   };
 
   const onClickLeft = () => {
     if (page - 1 > 0) {
-      clickPage(page, page - 1);
+      clickPage(page - 1);
     }
   };
 
   const onClickRight = () => {
     if (page + 1 <= totalPageNumber) {
-      clickPage(page, page + 1);
+      clickPage(page + 1);
     }
   };
 
   useEffect(() => {
-    if (pageRef.current?.children?.[page - 1]) {
-      pageRef.current.children[page - 1].id = `${styles.clicked}`;
+    if (page >= 1 && page <= 4) {
+      setPageList([1, 2, 3, 4, 5, 0, 10]);
+      return;
     }
-    return () => {
-      if (pageRef.current?.children?.[page - 1]) {
-        pageRef.current.children[page - 1].id = "";
-      }
-    };
-  }, [page]);
+    if (page >= 5 && page <= 6) {
+      setPageList([1, 0, page - 1, page, page + 1, 0, 10]);
+      return;
+    }
+    setPageList([1, 0, 6, 7, 8, 9, 10]);
+  }, [page, totalPageNumber]);
 
   useEffect(() => {
     if (page === 1) {
@@ -132,20 +125,39 @@ const ItemPagination = () => {
           <BsChevronLeft />
         </div>
         <div ref={pageRef} className={styles.page__btn__list}>
-          {totalPageNumber === 0
-            ? null
-            : new Array(totalPageNumber)
-                .fill(0)
-                .map((_, index) => index + 1)
-                .map((item) => (
-                  <div
-                    key={item}
-                    className={`${styles.page__btn__list__item} ${styles.nonClicked}`}
-                    onClick={onChangePage}
-                  >
-                    {item}
-                  </div>
-                ))}
+          {pageList.map((item, index) => {
+            if (item === 0) {
+              return (
+                <div
+                  key={`eclipse${String(index)}`}
+                  className={styles.page__btn__list__eclipse}
+                >
+                  ...
+                </div>
+              );
+            }
+            if (item === page) {
+              return (
+                <div
+                  key={item}
+                  id={styles.clicked}
+                  className={styles.page__btn__list__item}
+                  onClick={onChangePage}
+                >
+                  {item}
+                </div>
+              );
+            }
+            return (
+              <div
+                key={item}
+                className={styles.page__btn__list__item}
+                onClick={onChangePage}
+              >
+                {item}
+              </div>
+            );
+          })}
         </div>
         <div
           ref={rightRef}

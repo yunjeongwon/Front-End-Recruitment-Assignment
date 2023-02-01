@@ -41,12 +41,21 @@
         margin-right: 10px;
         cursor: pointer;
       }
+      .page__btn__list__eclipse {
+        width: 36px;
+        height: 34px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 10px;
+      }
     }
   }
 }
 #clicked {
   border-color: #989898;
   background-color: #e4e4e4;
+  transition: all 0.6s;
 }
 #disabled {
   border-color: #f8f8f8;

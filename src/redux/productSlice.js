@@ -9,6 +9,7 @@ const initialState = {
   products: [],
   totalProductsNumber: 0,
   viewedProducts: [],
+  viewedProductsNumber: 0,
   column: "전체",
   word: "",
   page: 0,
@@ -62,6 +63,7 @@ export const productSlice = createSlice({
       state.products = [];
       state.totalProductsNumber = 0;
       state.viewedProducts = [];
+      state.viewedProductsNumber = 0;
       state.column = "전체";
       state.word = "";
       state.page = 0;
@@ -78,12 +80,21 @@ export const productSlice = createSlice({
       state.word = payload.word;
       state.column = payload.column;
       state.row = payload.row;
-      state.totalPageNumber = payload.products.length / payload.row;
       state.totalProductsNumber = payload.products.length;
-      state.viewedProducts = payload.products.slice(
-        (payload.page - 1) * payload.row,
-        payload.page * payload.row
-      );
+      const share = Math.ceil(payload.products.length / payload.row);
+      const remainder = payload.products.length % payload.row;
+      state.totalPageNumber = share;
+      if (state.totalPageNumber === state.page) {
+        state.viewedProducts = payload.products.slice(
+          (payload.page - 1) * payload.row,
+          (payload.page - 1) * payload.row + remainder
+        );
+      } else {
+        state.viewedProducts = payload.products.slice(
+          (payload.page - 1) * payload.row,
+          payload.page * payload.row
+        );
+      }
     });
     builder.addCase(fetchProducts.pending, (state) => {
       state.loading = true;

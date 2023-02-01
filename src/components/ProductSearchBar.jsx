@@ -42,8 +42,8 @@ const ItemSearchBar = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.search__title} onClick={onClickSearchTitle}>
-        상품검색
+      <div className={styles.search__title}>
+        <span onClick={onClickSearchTitle}>상품검색</span>
       </div>
       <div className={styles.searchBar}>
         <div className={styles.searchBar__name}>검색</div>
