@@ -88,9 +88,13 @@ const ItemPagination = () => {
       if (leftRef.current && barLeftRef.current) {
         leftRef.current.id = `${styles.disabled}`;
         barLeftRef.current.id = `${styles.disabled}`;
+        rightRef.current.id = "";
+        barRightRef.current.id = "";
       }
     } else if (page === totalPageNumber) {
       if (rightRef.current && barRightRef.current) {
+        leftRef.current.id = "";
+        barLeftRef.current.id = "";
         rightRef.current.id = `${styles.disabled}`;
         barRightRef.current.id = `${styles.disabled}`;
       }
