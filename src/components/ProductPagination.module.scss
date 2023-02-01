@@ -12,7 +12,7 @@
     border: none;
     margin-right: 20px;
   }
-  .page__btn__list {
+  .page__btn {
     width: 600px;
     display: flex;
     align-items: center;
@@ -26,16 +26,25 @@
       border-radius: 4px;
       cursor: pointer;
     }
-    .page__btn__page {
-      width: 40px;
-      height: 32px;
+    .page__btn__list {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 1px solid #dadada;
-      border-radius: 4px;
-      margin-right: 10px;
-      cursor: pointer;
+      .page__btn__list__item {
+        width: 36px;
+        height: 34px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #dadada;
+        border-radius: 4px;
+        margin-right: 10px;
+        cursor: pointer;
+      }
     }
   }
+}
+#clicked {
+  border-color: #989898;
+  background-color: #e4e4e4;
 }
