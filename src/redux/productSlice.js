@@ -13,7 +13,7 @@ const initialState = {
   word: "",
   page: 1,
   row: 10,
-  totalPageNumber: 10
+  totalPageNumber: 0
 };
 
 export const fetchProducts = createAsyncThunk(
@@ -39,9 +39,11 @@ export const productSlice = createSlice({
     },
     setRow: (state, { payload }) => {
       state.row = payload;
-      state.totalPageNumber = 100 / payload;
-      state.page = 1;
-      state.viewedProducts = state.products.slice(0, payload);
+      if (state.totalProductsNumber !== 0) {
+        state.totalPageNumber = 100 / payload;
+        state.page = 1;
+        state.viewedProducts = state.products.slice(0, payload);
+      }
     },
     setWord: (state, { payload }) => {
       state.word = payload;
@@ -52,6 +54,16 @@ export const productSlice = createSlice({
         (payload - 1) * state.row,
         payload * state.row
       );
+    },
+    resetProducts: (state) => {
+      state.products = [];
+      state.totalProductsNumber = 0;
+      state.viewedProducts = [];
+      state.column = "전체";
+      state.word = "";
+      state.page = 1;
+      state.row = 10;
+      state.totalPageNumber = 0;
     }
   },
   extraReducers: (builder) => {
@@ -63,6 +75,7 @@ export const productSlice = createSlice({
       state.word = payload.word;
       state.column = payload.column;
       state.row = payload.row;
+      state.totalPageNumber = payload.products.length / payload.row;
       state.totalProductsNumber = payload.products.length;
       state.viewedProducts = payload.products.slice(
         (payload.page - 1) * payload.row,
@@ -81,7 +94,13 @@ export const productSlice = createSlice({
   }
 });
 
-export const { fetchViewedProducts, setColumn, setRow, setWord, setPage } =
-  productSlice.actions;
+export const {
+  fetchViewedProducts,
+  setColumn,
+  setRow,
+  setWord,
+  setPage,
+  resetProducts
+} = productSlice.actions;
 
 export default productSlice.reducer;

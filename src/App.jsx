@@ -26,11 +26,9 @@ function App() {
   };
 
   useEffect(() => {
-    try {
-      const data = getQuery();
+    const data = getQuery();
+    if (data.word) {
       dispatch(fetchProducts(data));
-    } catch (err) {
-      console.error(err);
     }
   }, []);
 
