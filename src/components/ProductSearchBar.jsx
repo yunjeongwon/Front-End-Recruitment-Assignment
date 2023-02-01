@@ -1,13 +1,9 @@
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { columnList } from "../contants/product";
-import {
-  fetchProducts,
-  resetProducts,
-  setColumn,
-  setWord
-} from "../redux/productSlice";
+import { fetchProducts, resetProducts } from "../redux/productSlice";
 import styles from "./ProductSearchBar.module.scss";
 
 const ItemSearchBar = () => {
@@ -15,27 +11,35 @@ const ItemSearchBar = () => {
   const navigate = useNavigate();
   const { column, word, row } = useSelector((state) => state.product);
 
-  const onChangeColumn = (e) => {
-    dispatch(setColumn(e.target.value));
+  const [columnV, setColumnV] = useState("전체");
+  const [wordV, setWordV] = useState("");
+
+  const onChangeColumnV = (e) => {
+    setColumnV(e.target.value);
   };
 
-  const onChangeWord = (e) => {
-    dispatch(setWord(e.target.value));
+  const onChangeWordV = (e) => {
+    setWordV(e.target.value);
   };
 
-  const onSearch = (e) => {
-    e.preventDefault();
-    if (word.trim() === "") {
+  const onSearch = () => {
+    // e.preventDefault();
+    if (wordV.trim() === "") {
       return alert("검색어를 입력해주세요!");
     }
-    dispatch(fetchProducts({ column, word, page: 1, row }));
-    navigate(`?column=${column}&word=${word}&row=${row}&page=${1}`);
+    dispatch(fetchProducts({ column: columnV, word: wordV, page: 1, row }));
+    navigate(`?column=${columnV}&word=${wordV}&row=${row}&page=${1}`);
   };
 
   const onClickSearchTitle = () => {
     dispatch(resetProducts());
     navigate(`/`);
   };
+
+  useEffect(() => {
+    setColumnV(column);
+    setWordV(word);
+  }, [column, word]);
 
   return (
     <div className={styles.container}>
@@ -46,8 +50,8 @@ const ItemSearchBar = () => {
         <div className={styles.searchBar__name}>검색</div>
         <select
           className={styles.searchBar__select}
-          value={column}
-          onChange={onChangeColumn}
+          value={columnV}
+          onChange={onChangeColumnV}
         >
           {columnList.map((item) => (
             <option
@@ -61,8 +65,8 @@ const ItemSearchBar = () => {
         </select>
         <input
           className={styles.searchBar__input}
-          value={word}
-          onChange={onChangeWord}
+          value={wordV}
+          onChange={onChangeWordV}
         />
         <div className={styles.searchBar__btn} onClick={onSearch}>
           조회

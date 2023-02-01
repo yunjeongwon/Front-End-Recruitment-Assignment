@@ -27,9 +27,7 @@ function App() {
 
   useEffect(() => {
     const data = getQuery();
-    if (data.word) {
-      dispatch(fetchProducts(data));
-    }
+    dispatch(fetchProducts(data));
   }, []);
 
   return (

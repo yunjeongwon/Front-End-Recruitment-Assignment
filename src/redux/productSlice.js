@@ -11,15 +11,18 @@ const initialState = {
   viewedProducts: [],
   column: "전체",
   word: "",
-  page: 1,
+  page: 0,
   row: 10,
   totalPageNumber: 0
 };
 
 export const fetchProducts = createAsyncThunk(
   "product/fetchProducts",
-  async ({ column, word, page, row }) => {
+  async ({ column, word, row, page }) => {
     const res = await getProducts();
+    if (!column && !word && !page && !row) {
+      return { ...res.data, column: "전체", word: "", page: 1, row: 10 };
+    }
     return { ...res.data, column, word, page, row };
   }
 );
@@ -61,7 +64,7 @@ export const productSlice = createSlice({
       state.viewedProducts = [];
       state.column = "전체";
       state.word = "";
-      state.page = 1;
+      state.page = 0;
       state.row = 10;
       state.totalPageNumber = 0;
     }
