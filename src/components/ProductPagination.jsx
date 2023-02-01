@@ -1,5 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import {
+  BsChevronBarLeft,
+  BsChevronLeft,
+  BsChevronBarRight,
+  BsChevronRight
+} from "react-icons/bs";
 
 import { rowList } from "../contants/product";
 import styles from "./ProductPagination.module.scss";
@@ -42,6 +48,12 @@ const ItemPagination = () => {
         ))}
       </select>
       <div className={styles.page__btn__list}>
+        <div className={styles.page__btn__arrow}>
+          <BsChevronBarLeft />
+        </div>
+        <div className={styles.page__btn__arrow}>
+          <BsChevronLeft />
+        </div>
         {totalPageNumber === 0
           ? null
           : new Array(totalPageNumber)
@@ -50,12 +62,18 @@ const ItemPagination = () => {
               .map((item) => (
                 <div
                   key={item}
-                  className={styles.page__btn}
+                  className={styles.page__btn__page}
                   onClick={onChangePage}
                 >
                   {item}
                 </div>
               ))}
+        <div className={styles.page__btn__arrow}>
+          <BsChevronRight />
+        </div>
+        <div className={styles.page__btn__arrow}>
+          <BsChevronBarRight />
+        </div>
       </div>
     </div>
   );
