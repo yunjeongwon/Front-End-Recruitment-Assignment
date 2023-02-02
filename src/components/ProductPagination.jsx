@@ -65,6 +65,12 @@ const ItemPagination = () => {
   };
 
   useEffect(() => {
+    if (totalPageNumber <= 6) {
+      setPageList(
+        new Array(totalPageNumber).fill(0).map((_, index) => index + 1)
+      );
+      return;
+    }
     if (page >= 1 && page <= 4) {
       setPageList([1, 2, 3, 4, 5, 0, 10]);
       return;
